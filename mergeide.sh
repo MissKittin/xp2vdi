@@ -9,134 +9,137 @@ print_mergeide_reg()
 # source: https://www.virtualbox.org/wiki/Migrate_Windows
 # note: reged does not allow comments and line breaks
 
+local current_control_set='CurrentControlSet'
+[ ! "${1}" = '' ] && current_control_set="${1}"
+
 cat << EOF
 Windows Registry Editor Version 5.00
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\primary_ide_channel]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\primary_ide_channel]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="atapi"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\secondary_ide_channel]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\secondary_ide_channel]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="atapi"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\*pnp0600]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\*pnp0600]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="atapi"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\*azt0502]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\*azt0502]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="atapi"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\gendisk]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\gendisk]
 "ClassGUID"="{4D36E967-E325-11CE-BFC1-08002BE10318}"
 "Service"="disk"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#cc_0101]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#cc_0101]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_0e11&dev_ae33]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_0e11&dev_ae33]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1039&dev_0601]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1039&dev_0601]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1039&dev_5513]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1039&dev_5513]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1042&dev_1000]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1042&dev_1000]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_105a&dev_4d33]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_105a&dev_4d33]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0640]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0640]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0646]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0646]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0646&REV_05]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0646&REV_05]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0646&REV_07]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0646&REV_07]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0648]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0648]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0649]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1095&dev_0649]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1097&dev_0038]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1097&dev_0038]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_10ad&dev_0001]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_10ad&dev_0001]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_10ad&dev_0150]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_10ad&dev_0150]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_10b9&dev_5215]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_10b9&dev_5215]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_10b9&dev_5219]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_10b9&dev_5219]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_10b9&dev_5229]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_10b9&dev_5229]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="pciide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_1106&dev_0571]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_1106&dev_0571]
 "Service"="pciide"
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_8086&dev_1222]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_8086&dev_1222]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="intelide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_8086&dev_1230]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_8086&dev_1230]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="intelide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_8086&dev_2411]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_8086&dev_2411]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="intelide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_8086&dev_2421]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_8086&dev_2421]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="intelide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_8086&dev_7010]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_8086&dev_7010]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="intelide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_8086&dev_7111]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_8086&dev_7111]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="intelide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_8086&dev_7199]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Control\CriticalDeviceDatabase\pci#ven_8086&dev_7199]
 "ClassGUID"="{4D36E96A-E325-11CE-BFC1-08002BE10318}"
 "Service"="intelide"
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\atapi]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Services\atapi]
 "ErrorControl"=dword:00000001
 "Group"="SCSI miniport"
 "Start"=dword:00000000
@@ -145,7 +148,7 @@ Windows Registry Editor Version 5.00
 "DisplayName"="Standard IDE/ESDI Hard Disk Controller"
 "ImagePath"=hex(2):53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,44,00,52,00,49,00,56,00,45,00,52,00,53,00,5c,00,61,00,74,00,61,00,70,00,69,00,2e,00,73,00,79,00,73,00,00,00
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\IntelIde]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Services\IntelIde]
 "ErrorControl"=dword:00000001
 "Group"="System Bus Extender"
 "Start"=dword:00000000
@@ -153,7 +156,7 @@ Windows Registry Editor Version 5.00
 "Type"=dword:00000001
 "ImagePath"=hex(2):53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,44,00,52,00,49,00,56,00,45,00,52,00,53,00,5c,00,69,00,6e,00,74,00,65,00,6c,00,69,00,64,00,65,00,2e,00,73,00,79,00,73,00,00,00
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PCIIde]
+[HKEY_LOCAL_MACHINE\SYSTEM\\${current_control_set}\Services\PCIIde]
 "ErrorControl"=dword:00000001
 "Group"="System Bus Extender"
 "Start"=dword:00000000
@@ -313,6 +316,7 @@ if [ "${1}" = '' ] || [ "${1}" = '-h' ] || [ "${1}" = '--help' ]; then
 	echo " ${0##*/} --check-tools"
 	echo ''
 	echo 'Required tools:'
+	echo ' bash or ash or dash'
 	echo ' cat'
 	echo ' cp'
 	echo ' cabextract'
@@ -321,7 +325,7 @@ if [ "${1}" = '' ] || [ "${1}" = '-h' ] || [ "${1}" = '--help' ]; then
 	echo ' tr'
 	echo ' xargs'
 	echo ' mktemp'
-	echo ' sed'
+	#echo ' sed'
 	echo ' rm'
 	echo ' realpath'
 
@@ -330,7 +334,7 @@ fi
 
 # Phase 0: check environment
 tools_not_found='false'
-for i in 'cat' 'cp' 'cabextract' 'reged' 'grep' 'tr' 'xargs' 'mktemp' 'sed' 'rm' 'realpath'; do
+for i in 'cat' 'cp' 'cabextract' 'reged' 'grep' 'tr' 'xargs' 'mktemp' 'rm' 'realpath'; do
 	echo -n "Checking for ${i}"
 	if command -v "${i}" > /dev/null 2>&1; then
 		echo ' [ OK ]'
@@ -410,7 +414,8 @@ EOF
 
 	echo "Patching MergeIDE.reg: ${current_control_set}"
 	mergeide_temp="$(mktemp).reg"
-	print_mergeide_reg | sed 's/HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\/HKEY_LOCAL_MACHINE\\SYSTEM\\'"${current_control_set}"'\\/g' > "${mergeide_temp}"
+	#print_mergeide_reg | sed 's/HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\/HKEY_LOCAL_MACHINE\\SYSTEM\\'"${current_control_set}"'\\/g' > "${mergeide_temp}"
+	print_mergeide_reg "${current_control_set}" > "${mergeide_temp}"
 
 	echo "Patching registry: ${current_control_set}"
 	echo 'y' | reged -I "${file_system32_config_system}" 'HKEY_LOCAL_MACHINE\SYSTEM' "${mergeide_temp}" > /dev/null 2>&1
