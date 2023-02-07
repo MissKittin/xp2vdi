@@ -82,7 +82,7 @@ find_windows_nt_edition()
 {
 	#if grep 'Windows NT ' "${1}" > /dev/null 2>&1; then
 	if grep 'Microsoft (R) Windows NT (TM) ' "${1}" > /dev/null 2>&1; then
-		echo 'NT 4'
+		echo 'NT 3/NT 4'
 		return 0
 	fi
 
@@ -426,6 +426,11 @@ else
 						if "$(dirname "$(readlink -f "${0}")")/mergeide.sh" "${dir_windows}"; then
 							echo ''
 							echo ' MergeIDE finished'
+
+							echo -n ' Removing registry backup'
+							rm "$(realpath ${dir_windows}/../system.bak)" > /dev/null 2>&1 && \
+								echo ' [ OK ]' || \
+								echo ' [FAIL]'
 						else
 							echo ''
 							echo ' MergeIDE failed'

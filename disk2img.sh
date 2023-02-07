@@ -25,21 +25,92 @@ get_dev_vendor_model_type()
 
 	case "${device}" in
 		sd*)
-			echo -n 'ATA/(e)SATA/SCSI/USB '
+			if [ -e '/dev/disk/by-id' ]; then
+				local i
+				local i_bus
+				local i_device
+
+				for i in /dev/disk/by-id/*; do
+					if [ "${i}" = '/dev/disk/by-id/*' ]; then
+						echo -n ' ATA/(e)SATA/SCSI/USB'
+						break
+					else
+						i_device="$(readlink ${i})"
+						i_device="${i_device##*/}"
+
+						if [ "${i_device}" = "${device}" ]; then
+							i_bus="${i##*/}"
+
+							case "${i_bus%%-*}" in
+								'ata')
+									echo -n ' ATA/(e)SATA'
+								;;
+								'scsi')
+									echo -n ' SCSI'
+								;;
+								'usb')
+									echo -n ' USB'
+								;;
+								*)
+									echo -n ' ATA/(e)SATA/SCSI/USB'
+								;;
+							esac
+
+							break
+						fi
+					fi
+				done
+			else
+				echo -n ' ATA/(e)SATA/SCSI/USB'
+			fi
 		;;
 		mmcblk*)
-			echo -n '(e)MMC/SD '
+			echo -n ' (e)MMC/SD'
 		;;
 		nvme*)
-			echo -n 'NVME '
+			echo -n ' NVME'
+		;;
+		xvd*)
+			echo -n ' XEN'
+		;;
+		vd*)
+			echo -n ' VirtIO'
+		;;
+		loop*)
+			echo -n ' Loopback'
 		;;
 	esac
 
-	[ -e "/sys/block/${device}/device/vendor" ] && \
-		echo -n "$(cat /sys/block/${device}/device/vendor 2>/dev/null | xargs)"
+	#[ -e "/sys/block/${device}/device/vendor" ] && \
+	#	echo -n " $(cat /sys/block/${device}/device/vendor 2>/dev/null | xargs)"
 
 	[ -e "/sys/block/${device}/device/model" ] && \
 		echo -n " $(cat /sys/block/${device}/device/model 2>/dev/null | xargs)"
+}
+get_disk_capacity()
+{
+	local device="${1##*/}"
+
+	[ ! -e "/sys/class/block/${device}/size" ] && return 1
+	[ ! -e "/sys/class/block/${device}/queue/logical_block_size" ] && return 1
+
+	local blocks=$(cat "/sys/class/block/${device}/size")
+	local block_size=$(cat "/sys/class/block/${device}/queue/logical_block_size")
+	local size="$((${blocks}*${block_size}))"
+
+	if [ "${size}" -ge '1000000000000000' ]; then
+		echo " $((${size}/1000000000000000))PB"
+	elif [ "${size}" -ge '1000000000000' ]; then
+		echo " $((${size}/1000000000000))TB"
+	elif [ "${size}" -ge '1000000000' ]; then
+		echo " $((${size}/1000000000))GB"
+	elif [ "${size}" -ge '1000000' ]; then
+		echo " $((${size}/1000000))MB"
+	elif [ "${size}" -ge '1000' ]; then
+		echo " $((${size}/1000))kB"
+	else
+		echo " ${size}B"
+	fi
 }
 
 [ ! "${1}" = '--check-tools' ] && if [ "${3}" = '' ] || [ "${1}" = '-h' ] || [ "${1}" = '--help' ]; then
@@ -74,6 +145,7 @@ get_dev_vendor_model_type()
 	echo ' rm'
 	echo ' umount'
 	echo ' rmdir'
+	echo ' readlink'
 	echo ' qemu-img (except raw image format)'
 	echo ''
 	echo 'Optional tools:'
@@ -90,7 +162,7 @@ fi
 
 # Phase 0: check environment
 tools_not_found='false'
-required_tools='cat xargs mktemp mount dd sync rm umount rmdir'
+required_tools='cat xargs mktemp mount dd sync rm umount rmdir readlink'
 [ ! "${3}" = 'raw' ] && required_tools="${required_tools} qemu-img"
 for i in ${required_tools}; do
 	echo -n "Checking for ${i}"
@@ -143,7 +215,7 @@ if [ "${3}" = 'qcow2-compressed' ] && [ -e "${2}.src" ]; then
 	exit 1
 fi
 
-echo "Selected disk: ${1} $(get_dev_vendor_model_type ${1})"
+echo "Selected disk: ${1}$(get_dev_vendor_model_type ${1})$(get_disk_capacity ${1})"
 echo "Selected file: ${2}"
 if [ "${3}" = 'qcow2-compressed' ]; then
 	echo " Disk image: ${2}.src"
