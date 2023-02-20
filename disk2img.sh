@@ -320,7 +320,7 @@ case "${3}" in
 		fi
 
 		echo "Creating qcow2 snapshot ${2}"
-		if ! qemu-img snapshot -c "${2}" "./${2}.src"; then
+		if ! qemu-img create -f qcow2 -b "${2}.src" "${1}"; then
 			echo 'Creating qcow2 snapshot failed'
 			echo "Saved compressed disk image as ${2}.src"
 			rm "${2}" > /dev/null 2>&1
